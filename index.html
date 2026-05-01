@@ -1,86 +1,223 @@
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flow</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: white;
-      overflow: hidden;
-    }
-    .page {
-      display: none;
-      width: 100vw;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      gap: 25px;
-    }
-    .active { display: flex; }
-    
-    button {
-      padding: 18px 36px;
-      font-size: 20px;
-      color: white;
-      background: #333;
-      border: 2px solid #555;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:hover { background: #444; }
-    
-    img, video {
-      max-width: 85%;
-      max-height: 70vh;
-    }
-    #endText {
-      display: none;
-      font-size: 26px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thurakk Mone Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Page 1 & 2 Center Style */
+        .center-page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        button {
+            padding: 20px 50px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            margin: 15px;
+        }
+        button:hover {
+            transform: scale(1.1);
+            background: #ff5252;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        .photo-box {
+            width: 300px;
+            height: 300px;
+            background: white;
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Page 3 Video Style */
+        #page3 {
+            padding: 40px 20px;
+        }
+        .video-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .video-box {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+        .video-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        video {
+            width: 100%;
+            border-radius: 15px;
+            display: block;
+        }
+        .video-title {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #4ecdc4;
+            font-size: 18px;
+            padding: 12px 25px;
+            z-index: 100;
+        }
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 32px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <!-- Page 1: Button mathram -->
-  <div id="page1" class="page active">
-    <button onclick="showPage(2)">Open cheyy</button>
-  </div>
+    <!-- Page 1 -->
+    <div class="page active center-page" id="page1">
+        <button onclick="showPage2()">Thurakk mone</button>
+    </div>
 
-  <!-- Page 2: Photo + Button -->
-  <div id="page2" class="page">
-    <img src="photo.png" alt="Photo">
-    <button onclick="showPage(3)">Next</button>
-  </div>
+    <!-- Page 2 -->
+    <div class="page center-page" id="page2">
+        <div class="photo-box">
+            <!-- NINTE PHOTO: src="photo.jpg" enn maattuka -->
+            <img src="photo.jpg" alt="Ninte Photo">
+        </div>
+        <button onclick="showPage3()">Onnude nekk mone</button>
+        <br>
+        <button onclick="showPage1()" style="background:#4ecdc4; font-size:20px; padding:15px 35px;">Thirich pokam</button>
+    </div>
 
-  <!-- Page 3: Video -->
-  <div id="page3" class="page">
-    <video id="pageVideo" playsinline>
-      <source src="video.mp4" type="video/mp4">
-    </video>
-    <div id="endText">Apo sheri okke Bye</div>
-  </div>
+    <!-- Page 3 - Video Scroll -->
+    <div class="page" id="page3">
+        <button class="back-btn" onclick="showPage2()">← Back</button>
+        <h1 class="page-title">Videos Mone 🎬</h1>
+        <div class="video-container">
+            <!-- VIDEO 1 -->
+            <div class="video-box">
+                <video controls>
+                    <source src="video1.mp4" type="video/mp4">
+                    Video 1
+                </video>
+                <div class="video-title">Video 1</div>
+            </div>
+            
+            <!-- VIDEO 2 -->
+            <div class="video-box">
+                <video controls>
+                    <source src="video2.mp4" type="video/mp4">
+                    Video 2
+                </video>
+                <div class="video-title">Video 2</div>
+            </div>
+            
+            <!-- VIDEO 3 -->
+            <div class="video-box">
+                <video controls>
+                    <source src="video3.mp4" type="video/mp4">
+                    Video 3
+                </video>
+                <div class="video-title">Video 3</div>
+            </div>
+            
+            <!-- VIDEO 4 -->
+            <div class="video-box">
+                <video controls>
+                    <source src="video4.mp4" type="video/mp4">
+                    Video 4
+                </video>
+                <div class="video-title">Video 4</div>
+            </div>
+        </div>
+    </div>
 
-  <script>
-    function showPage(num) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page' + num).classList.add('active');
-      
-      if(num === 3) {
-        const video = document.getElementById('pageVideo');
-        const endText = document.getElementById('endText');
-        video.muted = true; 
-        video.play();
+    <script>
+        function showPage1() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page1').classList.add('active');
+            window.scrollTo(0, 0);
+        }
         
-        video.onended = function() {
-          endText.style.display = 'block';
-        };
-      }
-    }
-  </script>
+        function showPage2() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page2').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        
+        function showPage3() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page3').classList.add('active');
+            window.scrollTo(0, 0);
+            setTimeout(checkVideos, 100);
+        }
+        
+        // Scroll cheyumbo video fade-in aakan
+        function checkVideos() {
+            const videos = document.querySelectorAll('.video-box');
+            videos.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (boxTop < windowHeight - 100) {
+                    box.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkVideos);
+        checkVideos();
+    </script>
 </body>
-      </html>
+                  </html>
